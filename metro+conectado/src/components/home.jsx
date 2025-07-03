@@ -5,7 +5,7 @@ const Home = () => {
     const [menuAberto, setMenuAberto] = useState(false);
 
     return (
-        <>
+        <div className="bodyHome">
             <div class="background-image"></div> {/* Não mexer nesse class*/}
             <div
                 className={`botaoMenu ${menuAberto ? "moverBotao" : ""}`}
@@ -39,7 +39,7 @@ const Home = () => {
                     </div>
                 </div>
             </main>
-        </>
+        </div>
     );
 };
 

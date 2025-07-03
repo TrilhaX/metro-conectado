@@ -2,7 +2,7 @@ import './login.css'
 
 const Login = () => {
     return(
-        <>
+        <div className='bodyLogin'>
             <div class="background-image-login"></div> {/* Não mexer nesse class*/}
             <a href='home'><div class="backtoStartImg"></div></a> {/* Não mexer nesse class*/}
             <form>
@@ -22,7 +22,7 @@ const Login = () => {
 
                 <h2>Esqueceu a senha?</h2>
             </form>
-        </>
+        </div>
     )
 }
 
