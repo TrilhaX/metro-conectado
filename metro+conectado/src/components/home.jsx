@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './home.css'
 
 const Home = () => {
     const [menuAberto, setMenuAberto] = useState(false);
@@ -15,7 +16,7 @@ const Home = () => {
             <div className={`sidebar ${menuAberto ? "aberta" : ""}`}>
                 <ul>
                     <hr />
-                    <li><a href="">Início</a></li>
+                    <li><a href="home">Início</a></li>
                     <hr/>
                     <li><a href="sobre">Sobre</a></li>
                     <hr/>
