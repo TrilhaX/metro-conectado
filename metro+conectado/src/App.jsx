@@ -7,6 +7,7 @@ import Planos from "./components/planos";
 import Sobre from "./components/sobre";
 import Mapa from "./components/mapa";
 import Lotacao from "./components/lotacao"
+import RecSenha from "./components/recSenha"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/mapa" element={<Mapa />} />
         <Route path="/lotacao" element={<Lotacao />} />
+        <Route path="/recoverPassword" element={<RecSenha />} />
       </Routes>
     </Router>
   );
