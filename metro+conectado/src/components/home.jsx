@@ -15,17 +15,17 @@ const Home = () => {
             <div className={`sidebar ${menuAberto ? "aberta" : ""}`}>
                 <ul>
                     <hr />
-                    <li><a href="#">Início</a></li>
+                    <li><a href="">Início</a></li>
                     <hr/>
-                    <li><a href="#">Sobre</a></li>
+                    <li><a href="sobre">Sobre</a></li>
                     <hr/>
-                    <li><a href="#">Contato</a></li>
+                    <li><a href="contato">Contato</a></li>
                     <hr/>
-                    <li><a href="#">Planos</a></li>
+                    <li><a href="planos">Planos</a></li>
                     <hr/>
                     <li><a href="login">Login</a></li>
                     <hr/>
-                    <li><a href="#">Sign Up</a></li> 
+                    <li><a href="signup">Sign Up</a></li> 
                     <hr />
                 </ul>
             </div>
@@ -33,7 +33,7 @@ const Home = () => {
                 <div className="containerHome">
                     <h1>METRÔ + CONECTADO</h1>
                     <div className="buttonsHome">
-                        <button id="mapasButton">Mapas</button>
+                        <button id="mapasButton">Mapa</button>
                         <button id="lotacaoButton">Lotação</button>
                     </div>
                 </div>
