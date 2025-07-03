@@ -33,8 +33,8 @@ const Home = () => {
                 <div className="containerHome">
                     <h1>METRÔ + CONECTADO</h1>
                     <div className="buttonsHome">
-                        <button id="mapasButton">Mapa</button>
-                        <button id="lotacaoButton">Lotação</button>
+                        <button id="mapasButton"><a href="mapa">Mapa</a></button>
+                        <button id="lotacaoButton"><a href="lotacao">Lotação</a></button>
                     </div>
                 </div>
             </main>

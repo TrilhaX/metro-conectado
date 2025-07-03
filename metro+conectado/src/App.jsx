@@ -5,6 +5,8 @@ import SignUp from "./components/signup";
 import Contato from "./components/contato";
 import Planos from "./components/planos";
 import Sobre from "./components/sobre";
+import Mapa from "./components/mapa";
+import Lotacao from "./components/lotacao"
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/planos" element={<Planos />} />
         <Route path="/sobre" element={<Sobre />} />
+        <Route path="/mapa" element={<Mapa />} />
+        <Route path="/lotacao" element={<Lotacao />} />
       </Routes>
     </Router>
   );
