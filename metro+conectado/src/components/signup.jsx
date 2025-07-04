@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './signup.css'
+import './signup.css';
 import bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,18 +10,23 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [erro, setErro] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (senha.length < 8 || senha.length > 16) {
+            setErro("A senha deve conter entre 8 e 16 caracteres");
+            return;
+        }
+
         if (senha !== confirmarSenha) {
-            alert("As senhas não coincidem");
+            setErro("As senhas não coincidem");
             return;
         }
 
         const senhaCriptografada = await bcrypt.hash(senha, saltRounds);
         const id = uuidv4();
-
 
         const novoUsuario = {
             id,
@@ -31,8 +36,6 @@ const Signup = () => {
         };
 
         localStorage.setItem('usuario', JSON.stringify(novoUsuario));
-        alert("Cadastro realizado com sucesso!");
-
         window.location.href = 'login';
     };
 
@@ -43,7 +46,7 @@ const Signup = () => {
             <form onSubmit={handleSubmit}>
                 <h1>Registro</h1>
                 <div className="input-container">
-                    <label>Nome de Usuario</label>
+                    <label>Nome de Usuário</label>
                     <input type="text" required value={username} onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div className="input-container">
@@ -58,11 +61,12 @@ const Signup = () => {
                     <label>Confirme a Senha</label>
                     <input type="password" required value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)} />
                 </div>
+                {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
                 <button type="submit">Entrar</button>
                 <h2><a href='login'>Já tem login?</a></h2>
             </form>
         </div>
-    )
+    );
 }
 
 export default Signup;

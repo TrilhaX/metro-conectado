@@ -58,6 +58,12 @@
     z-index: 2;
 }
 
+#erroLabel{
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 /* FORMULÁRIO */
 form {
     display: flex;
