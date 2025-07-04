@@ -9,14 +9,12 @@ const Perfil = () => {
         if (dados) {
             setUsuario(dados);
         } else {
-            alert("Você precisa estar logado para acessar o perfil.");
             window.location.href = "login";
         }
     }, []);
 
     const handleLogout = () => {
         sessionStorage.removeItem("sessionUser");
-        alert("Logout realizado com sucesso!");
         window.location.href = "/";
     };
 
