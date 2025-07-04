@@ -14,7 +14,7 @@
 }
 
 /* CONTAINER PRINCIPAL DO LOGIN */
-.bodyLogin {
+.bodyPerfil {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -30,22 +30,7 @@
     z-index: 1;
 }
 
-/* FUNDO COM IMAGEM DO LOGIN */
-.background-image-login {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(../assets/trem.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.7;
-    z-index: 0;
-}
-
-/* botão voltar */
+/* BOTÃO VOLTAR */
 .backtoStartImg {
     position: fixed;
     top: -2rem;
@@ -58,16 +43,11 @@
     z-index: 2;
 }
 
-#linkEspecificoRecoverPassword{
-    color: black;
-}
-
 /* FORMULÁRIO */
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     background-color: #0e6d5e;
     border-radius: 10px;
     padding: 1rem 3rem;
@@ -80,6 +60,7 @@ form {
     position: relative;
     display: flex;
     flex-direction: column;
+    margin: 1rem 0;
     width: 100%;
     max-width: 300px;
 }
@@ -87,9 +68,9 @@ form {
 .input-container label {
     position: absolute;
     top: -10px;
-    left: 5px;
+    left: 12px;
     font-size: 1rem;
-    padding: 0 3px;
+    padding: 0 5px;
     color: white;
 }
 
@@ -98,7 +79,7 @@ input {
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
-    margin: .5rem 0;
+    margin: 1rem 0;
     transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 

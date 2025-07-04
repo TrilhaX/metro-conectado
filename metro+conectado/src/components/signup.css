@@ -50,13 +50,13 @@
 /* BOTÃO VOLTAR */
 .backtoStartImg {
     position: fixed;
-    top: -1.5rem;
-    left: 2rem;
+    top: -2rem;
+    left: 3rem;
     background-image: url(../assets/backtoinicio-removebg-preview.png);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     z-index: 2;
 }
 
