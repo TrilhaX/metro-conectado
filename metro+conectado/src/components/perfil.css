@@ -123,3 +123,75 @@ h2 {
     font-size: 15px;
     padding-top: 0.8rem;
 }
+
+.perfil-container {
+  background-color: #006c58;
+  border: none;
+  border-radius: 20px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  text-align: center;
+  align-items: center;
+  color: white;
+}
+
+.perfil-header {
+  width: inherit;
+  background-color: #1e1e1e;
+  background-image: url('../assets/backgroundPhotoPerfil.png');
+  background-size: cover;
+  border-radius: 15px;
+  padding: 20px 10px;
+}
+
+.foto-perfil {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.perfil-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 5rem;
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  color: #d0d0d0;
+}
+
+.campo {
+  background-color: #c0d6ce;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
+}
+
+.sair {
+  background-color: #c0cdcb;
+  color: #31a290;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 1rem 0;
+}

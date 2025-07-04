@@ -4,7 +4,7 @@ const RecSenha = () => {
     return (
         <div className='bodyLogin'>
             <div class="background-image-login"></div> {/* Não mexer nesse class*/}
-            <a href='home'><div class="backtoStartImg"></div></a> {/* Não mexer nesse class*/}
+            <a href='/'><div class="backtoStartImg"></div></a> {/* Não mexer nesse class*/}
             <form>
                 <h1>Recuperar<br></br>Senha</h1>
                 <div className="input-container">

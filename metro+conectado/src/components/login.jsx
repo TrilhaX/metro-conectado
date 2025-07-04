@@ -21,7 +21,7 @@ const Login = () => {
             const senhaConfere = await bcrypt.compare(senha, usuarioSalvo.senha);
             if (senhaConfere) {
                 sessionStorage.setItem("sessionUser", JSON.stringify(usuarioSalvo));
-                window.location.href = 'home';
+                window.location.href = '/';
             } else {
                 errorLabel.innerHTML = "Sua senha está errada!"
             }
@@ -33,7 +33,7 @@ const Login = () => {
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='home'><div className="backtoStartImg"></div></a>
+            <a href='/'><div className="backtoStartImg"></div></a>
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <div className="input-container">

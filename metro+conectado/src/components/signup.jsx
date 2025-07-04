@@ -8,6 +8,7 @@ const saltRounds = 10;
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [erro, setErro] = useState('');
@@ -32,6 +33,8 @@ const Signup = () => {
             id,
             username,
             email,
+            telefone,
+            plano: "BÁSICO",
             senha: senhaCriptografada
         };
 
@@ -42,22 +45,26 @@ const Signup = () => {
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='home'><div className="backtoStartImg"></div></a>
+            <a href='/'><div className="backtoStartImg"></div></a>
             <form onSubmit={handleSubmit}>
                 <h1>Registro</h1>
-                <div className="input-container">
+                <div className="input-container-1">
                     <label>Nome de Usuário</label>
                     <input type="text" required value={username} onChange={e => setUsername(e.target.value)} />
                 </div>
-                <div className="input-container">
+                <div className="input-container-1">
                     <label>Email</label>
                     <input type="email" required value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
-                <div className="input-container">
+                <div className="input-container-1">
+                    <label>Telefone</label>
+                    <input type="tel" required value={telefone} onChange={e => setTelefone(e.target.value)} />
+                </div>
+                <div className="input-container-1">
                     <label>Senha</label>
                     <input type="password" required value={senha} onChange={e => setSenha(e.target.value)} />
                 </div>
-                <div className="input-container">
+                <div className="input-container-1">
                     <label>Confirme a Senha</label>
                     <input type="password" required value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)} />
                 </div>

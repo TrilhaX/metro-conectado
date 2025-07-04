@@ -73,15 +73,16 @@ form {
 }
 
 /* CAMPOS DE ENTRADA */
-.input-container {
+.input-container-1 {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 300px;
+    margin-bottom: .5rem;
 }
 
-.input-container label {
+.input-container-1 label {
     position: absolute;
     top: -10px;
     left: 5px;
@@ -95,7 +96,7 @@ input {
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
-    margin: .5rem 0;
+    margin: 1rem 0;
     transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
