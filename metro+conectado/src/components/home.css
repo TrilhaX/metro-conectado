@@ -1,10 +1,15 @@
 /* Reset para colocar o site no 0 */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 /* Personalização No Corpo Do Site */
 .bodyHome {
   font-family: 'Poppins', sans-serif;
-  margin: 0; padding: 0; 
+  margin: 0;
+  padding: 0;
   height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -18,15 +23,39 @@ main {
   height: 100vh;
 }
 
+li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
 /* Lista da Sidebar */
-ul{
+ul {
   display: flex;
   flex-direction: column;
 }
 
-a{
+a {
   color: white;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.perfil-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 /* Botão da Sidebar */
@@ -63,7 +92,7 @@ a{
   left: 0;
 }
 
-.sidebar.aberta ul{
+.sidebar.aberta ul {
   align-items: center;
 }
 
@@ -87,13 +116,28 @@ a{
 
 .sidebar ul li {
   margin: 1.5rem 0;
+  display: flex;
+  justify-content: center;
 }
 
+/*Alinha texto e SVG horizontalmente */
 .sidebar ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+/* Ajusta vertical do SVG para alinhar melhor com o texto */
+.sidebar ul li a svg {
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  fill: #e3e3e3;
 }
 
 /*  Container Principal (Home)  */
@@ -118,7 +162,10 @@ a{
 
 .background-image {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url(../assets/backgroundImage.gif);
   background-repeat: no-repeat;
   background-size: cover;
@@ -134,8 +181,9 @@ a{
 }
 
 /* Botão dos Mapas e Lotação */
-#mapasButton, #lotacaoButton {
-  padding: 20px 25px;
+#mapasButton,
+#lotacaoButton {
+  padding: 20px 20px;
   border: none;
   border-radius: 25px;
   color: white;
@@ -146,12 +194,13 @@ a{
 }
 
 /* Animação dos botões */
-#mapasButton:hover, #lotacaoButton:hover {
+#mapasButton:hover,
+#lotacaoButton:hover {
   transform: scale(1.1);
   box-shadow: 2px 8px 6px rgba(0, 0, 0, 0.3);
 }
 
-#footer{
+#footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -161,8 +210,8 @@ a{
   gap: 2rem;
 }
 
-.sobreNos{
-  background-color: #40A79D; 
+.sobreNos {
+  background-color: #40A79D;
   border: none;
   border-radius: 1rem;
   color: white;
@@ -173,7 +222,7 @@ a{
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-#paragrafoSobrenos{
+#paragrafoSobrenos {
   max-width: 900px;
   margin: 0 auto 20px auto;
   font-size: 18px;

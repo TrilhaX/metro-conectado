@@ -1,20 +1,36 @@
 /* Reset para colocar o site no 0 */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 /* Personalização No Corpo Do Site */
 body {
   font-family: 'Poppins', sans-serif;
-  margin: 0; padding: 0; 
+  margin: 0;
+  padding: 0;
   height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
-img{
+h1 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+}
+
+img {
   transition: transform 0.3s ease;
 }
 
-img:hover{
+img:hover {
   transform: scale(1.1);
 }
 
@@ -27,14 +43,21 @@ main {
 }
 
 /* Lista da Sidebar */
-ul{
+ul {
   display: flex;
   flex-direction: column;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
+}
+
+a, li {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
 }
 
 /* Botão da Sidebar */
@@ -71,7 +94,7 @@ a{
   left: 0;
 }
 
-.sidebar.aberta ul{
+.sidebar.aberta ul {
   align-items: center;
 }
 
@@ -126,7 +149,10 @@ a{
 
 .background-image {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url(./assets/backgroundImage.gif);
   background-repeat: no-repeat;
   background-size: cover;
@@ -142,7 +168,8 @@ a{
 }
 
 /* Botão dos Mapas e Lotação */
-#mapasButton, #lotacaoButton {
+#mapasButton,
+#lotacaoButton {
   padding: 20px 25px;
   border: none;
   border-radius: 25px;
@@ -154,7 +181,8 @@ a{
 }
 
 /* Animação dos botões */
-#mapasButton:hover, #lotacaoButton:hover {
+#mapasButton:hover,
+#lotacaoButton:hover {
   transform: scale(1.1);
   box-shadow: 2px 8px 6px rgba(0, 0, 0, 0.3);
 }
