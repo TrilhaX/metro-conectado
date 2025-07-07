@@ -20,7 +20,7 @@ const Perfil = () => {
 
     return (
         <div className='bodyPerfil'>
-            <a href='home'><div className="backtoStartImg"></div></a>
+            <a href='/'><div className="backtoStartImg"></div></a>
             <div className="perfil-container">
                 <div className="perfil-header">
                     <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto de Perfil" className="foto-perfil" />

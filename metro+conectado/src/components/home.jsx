@@ -27,7 +27,7 @@ const Home = () => {
                     <hr />
                     <li><a href="/">Início</a></li>
                     <hr />
-                    <li><a href="planos">Planos</a></li>
+                    <li><a href="/planos">Planos</a></li>
                     <hr />
                     {
                         usuarioLogado ? (
