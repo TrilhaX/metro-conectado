@@ -25,7 +25,7 @@ const Home = () => {
             <div className={`sidebar ${menuAberto ? "aberta" : ""}`}>
                 <ul>
                     <hr />
-                    <li><a href="home">Início</a></li>
+                    <li><a href="/">Início</a></li>
                     <hr />
                     <li><a href="planos">Planos</a></li>
                     <hr />
