@@ -93,6 +93,12 @@ const Perfil = () => {
         }
     };
 
+    const getImagemUrl = (caminho) => {
+        if (!caminho) return '/defaultAnonimo.png';
+        if (caminho.startsWith('http://') || caminho.startsWith('https://')) return caminho;
+        return `${BACKEND_URL}${caminho}`;
+    };
+
     return (
         <div className='bodyPerfil'>
             <a href='/'><div className="backtoStartImg"></div></a>
@@ -102,7 +108,7 @@ const Perfil = () => {
                     className="perfil-header"
                     onClick={() => fundoInputRef.current.click()}
                     style={{
-                        backgroundImage: `url(${fotoFundo ? BACKEND_URL + fotoFundo : "/defaultFundo.png"})`,
+                        backgroundImage: `url(${getImagemUrl(fotoFundo)})`,
                         backgroundSize: "cover",
                         cursor: "pointer"
                     }}
@@ -112,7 +118,7 @@ const Perfil = () => {
                         perfilInputRef.current.click();
                     }}>
                         <img
-                            src={fotoPerfil ? BACKEND_URL + fotoPerfil : "/defaultAnonimo.png"}
+                            src={getImagemUrl(fotoPerfil)}
                             alt="Foto de perfil"
                             style={{ width: '100%', height: '100%', borderRadius: '50%', cursor: 'pointer' }}
                         />
