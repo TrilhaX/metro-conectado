@@ -52,9 +52,17 @@ const Home = () => {
                             </>
                         ) : (
                             <>
-                                <li><a href="login">Login</a></li>
+                                <li>
+                                    <a href="login">
+                                        Login <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z"/></svg>
+                                    </a>
+                                </li>
                                 <hr />
-                                <li><a href="signup">Sign Up</a></li>
+                                <li>
+                                    <a href="signup">
+                                        Sign Up <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                                    </a>
+                                </li>
                                 <hr />
                             </>
                         )
