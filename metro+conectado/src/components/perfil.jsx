@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import imageCompression from 'browser-image-compression';
 import './perfil.css';
 
 const Perfil = () => {
@@ -31,28 +30,9 @@ const Perfil = () => {
         if (dataFundo) setDataFotoFundo(dataFundo);
     }, []);
 
-    const atualizarUsuario = async (dadosAtualizados) => {
-        if (!usuario?.id) return;
-
-        try {
-            const response = await fetch(`https://backend-metro-conectado.onrender.com/users/update/${usuario.id}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dadosAtualizados),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                console.log('Usuário atualizado:', data.usuario);
-                setUsuario(data.usuario);
-                sessionStorage.setItem('sessionUser', JSON.stringify(data.usuario));
-            } else {
-                console.error('Erro ao atualizar:', data.erro);
-            }
-        } catch (error) {
-            console.error('Erro na requisição:', error);
-        }
+    const atualizarUsuario = (usuarioAtualizado) => {
+        setUsuario(usuarioAtualizado);
+        sessionStorage.setItem("sessionUser", JSON.stringify(usuarioAtualizado));
     };
 
     const handleLogout = () => {
@@ -64,44 +44,50 @@ const Perfil = () => {
         window.location.href = "/";
     };
 
-    const handleImageChange = async (event, tipo) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const options = {
-            maxSizeMB: 0.5,
-            maxWidthOrHeight: 1024,
-            useWebWorker: true,
-        };
+    const enviarImagem = async (file, tipo) => {
+        if (!usuario?.id) return;
 
         try {
-            const compressedFile = await imageCompression(file, options);
+            const formData = new FormData();
+            formData.append('imagem', file);
+            formData.append('tipo', tipo);
 
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                const dataUrl = e.target.result;
-                const dataAtual = new Date().toLocaleString();
+            const response = await fetch(`https://backend-metro-conectado.onrender.com/users/update/${usuario.id}`, {
+                method: 'POST',
+                body: formData,
+            });
 
-                if (tipo === "perfil") {
-                    setFotoPerfil(dataUrl);
-                    setDataFotoPerfil(dataAtual);
-                    sessionStorage.setItem("fotoPerfil", dataUrl);
-                    sessionStorage.setItem("dataFotoPerfil", dataAtual);
+            if (!response.ok) {
+                const erro = await response.json();
+                console.error('Erro ao atualizar imagem:', erro);
+                return;
+            }
 
-                    await atualizarUsuario({ fotoPerfil: dataUrl });
-                } else if (tipo === "fundo") {
-                    setFotoFundo(dataUrl);
-                    setDataFotoFundo(dataAtual);
-                    sessionStorage.setItem("fotoFundo", dataUrl);
-                    sessionStorage.setItem("dataFotoFundo", dataAtual);
+            const data = await response.json();
 
-                    await atualizarUsuario({ fotoFundo: dataUrl });
-                }
-            };
+            if (tipo === "fotoPerfil") {
+                setFotoPerfil(data.usuario.fotoPerfil);
+                setDataFotoPerfil(new Date().toLocaleString());
+                sessionStorage.setItem("fotoPerfil", data.usuario.fotoPerfil);
+                sessionStorage.setItem("dataFotoPerfil", new Date().toLocaleString());
+            } else if (tipo === "fotoFundo") {
+                setFotoFundo(data.usuario.fotoFundo);
+                setDataFotoFundo(new Date().toLocaleString());
+                sessionStorage.setItem("fotoFundo", data.usuario.fotoFundo);
+                sessionStorage.setItem("dataFotoFundo", new Date().toLocaleString());
+            }
 
-            reader.readAsDataURL(compressedFile);
-        } catch (err) {
-            console.error("Erro ao comprimir a imagem:", err);
+            atualizarUsuario(data.usuario);
+
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+        }
+    };
+
+    const handleImageChange = (event, tipo) => {
+        const file = event.target.files[0];
+        if (file) {
+            enviarImagem(file, tipo);
         }
     };
 
@@ -137,14 +123,14 @@ const Perfil = () => {
                     accept="image/*"
                     ref={perfilInputRef}
                     style={{ display: 'none' }}
-                    onChange={(e) => handleImageChange(e, "perfil")}
+                    onChange={(e) => handleImageChange(e, "fotoPerfil")}
                 />
                 <input
                     type="file"
                     accept="image/*"
                     ref={fundoInputRef}
                     style={{ display: 'none' }}
-                    onChange={(e) => handleImageChange(e, "fundo")}
+                    onChange={(e) => handleImageChange(e, "fotoFundo")}
                 />
 
                 <div className="perfil-info">
