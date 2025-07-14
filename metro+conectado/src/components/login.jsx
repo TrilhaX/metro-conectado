@@ -12,7 +12,7 @@ const Login = () => {
 
         try {
             // Requisição para buscar todos os usuários
-            const response = await fetch('http://localhost:3000/users/all');
+            const response = await fetch('https://backend-metro-conectado.onrender.com/users/all');
             const usuarios = await response.json();
 
             // Verifica se o usuário com esse e-mail existe
