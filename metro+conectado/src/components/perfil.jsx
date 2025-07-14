@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import imageCompression from 'browser-image-compression';
 import './perfil.css';
 
 const Perfil = () => {
@@ -30,7 +31,6 @@ const Perfil = () => {
         if (dataFundo) setDataFotoFundo(dataFundo);
     }, []);
 
-    // Função para atualizar usuário no backend
     const atualizarUsuario = async (dadosAtualizados) => {
         if (!usuario?.id) return;
 
@@ -64,9 +64,19 @@ const Perfil = () => {
         window.location.href = "/";
     };
 
-    const handleImageChange = (event, tipo) => {
+    const handleImageChange = async (event, tipo) => {
         const file = event.target.files[0];
-        if (file) {
+        if (!file) return;
+
+        const options = {
+            maxSizeMB: 0.5,
+            maxWidthOrHeight: 1024,
+            useWebWorker: true,
+        };
+
+        try {
+            const compressedFile = await imageCompression(file, options);
+
             const reader = new FileReader();
             reader.onload = async (e) => {
                 const dataUrl = e.target.result;
@@ -88,7 +98,10 @@ const Perfil = () => {
                     await atualizarUsuario({ fotoFundo: dataUrl });
                 }
             };
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(compressedFile);
+        } catch (err) {
+            console.error("Erro ao comprimir a imagem:", err);
         }
     };
 
@@ -117,7 +130,6 @@ const Perfil = () => {
                         />
                     </div>
                     <h2>{usuario?.nome || "ANÔNIMO"}</h2>
-                    {dataFotoPerfil && <small>Atualizado em: {dataFotoPerfil}</small>}
                 </div>
 
                 <input
