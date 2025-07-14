@@ -26,20 +26,38 @@ const Signup = () => {
             return;
         }
 
-        const senhaCriptografada = await bcrypt.hash(senha, saltRounds);
-        const id = uuidv4();
+        try {
+            const senhaCriptografada = await bcrypt.hash(senha, saltRounds);
+            const id = uuidv4();
 
-        const novoUsuario = {
-            id,
-            username,
-            email,
-            telefone,
-            plano: "BÁSICO",
-            senha: senhaCriptografada
-        };
+            const novoUsuario = {
+                id,
+                nome: username,
+                email,
+                telefone,
+                plano: "BÁSICO",
+                senha: senhaCriptografada
+            };
 
-        localStorage.setItem('usuario', JSON.stringify(novoUsuario));
-        window.location.href = 'login';
+            const response = await fetch('http://localhost:3000/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(novoUsuario)
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                window.location.href = 'login';
+            } else {
+                setErro(data.erro || "Erro ao registrar.");
+            }
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            setErro("Erro de rede ou no servidor.");
+        }
     };
 
     return (

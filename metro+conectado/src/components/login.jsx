@@ -1,32 +1,42 @@
 import { useState } from 'react';
 import bcrypt from 'bcryptjs';
-import './login.css'
+import './login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const errorLabel = document.getElementById("erroLabel")
+    const [erro, setErro] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        const usuarioSalvo = JSON.parse(localStorage.getItem('usuario'));
+        try {
+            // Requisição para buscar todos os usuários
+            const response = await fetch('http://localhost:3000/users/all');
+            const usuarios = await response.json();
 
-        if (!usuarioSalvo) {
-            errorLabel.innerHTML = "Usuario ainda não foi cadastrado!"
-            return;
-        }
+            // Verifica se o usuário com esse e-mail existe
+            const usuarioEncontrado = usuarios.find(user => user.email === email);
 
-        if (usuarioSalvo.email === email) {
-            const senhaConfere = await bcrypt.compare(senha, usuarioSalvo.senha);
-            if (senhaConfere) {
-                sessionStorage.setItem("sessionUser", JSON.stringify(usuarioSalvo));
-                window.location.href = '/';
-            } else {
-                errorLabel.innerHTML = "Sua senha está errada!"
+            if (!usuarioEncontrado) {
+                setErro("Usuário não encontrado!");
+                return;
             }
-        } else {
-            errorLabel.innerHTML = "Seu email está errado!"
+
+            // Compara a senha com bcrypt
+            const senhaConfere = await bcrypt.compare(senha, usuarioEncontrado.senha);
+
+            if (!senhaConfere) {
+                setErro("Senha incorreta!");
+                return;
+            }
+
+            sessionStorage.setItem("sessionUser", JSON.stringify(usuarioEncontrado));
+            window.location.href = '/';
+
+        } catch (err) {
+            console.error("Erro ao fazer login:", err);
+            setErro("Erro ao conectar com o servidor.");
         }
     };
 
@@ -44,13 +54,13 @@ const Login = () => {
                     <label>Senha</label>
                     <input type="password" required value={senha} onChange={e => setSenha(e.target.value)} />
                 </div>
-                <label id="erroLabel"></label>
+                {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
                 <button type="submit">Entrar</button>
                 <h2><a href='recoverPassword'>Esqueceu a senha?</a></h2>
                 <h2><a href='signup'>Não tenho conta</a></h2>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default Login;
