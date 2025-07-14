@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './perfil.css';
 
+const BACKEND_URL = 'https://backend-metro-conectado.onrender.com';
+
 const Perfil = () => {
     const [usuario, setUsuario] = useState(null);
     const [fotoPerfil, setFotoPerfil] = useState(null);
@@ -52,7 +54,7 @@ const Perfil = () => {
             formData.append('imagem', file);
             formData.append('tipo', tipo);
 
-            const response = await fetch(`https://backend-metro-conectado.onrender.com/users/update/${usuario.id}`, {
+            const response = await fetch(`${BACKEND_URL}/users/update/${usuario.id}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -100,7 +102,7 @@ const Perfil = () => {
                     className="perfil-header"
                     onClick={() => fundoInputRef.current.click()}
                     style={{
-                        backgroundImage: `url(${fotoFundo || "/defaultFundo.png"})`,
+                        backgroundImage: `url(${fotoFundo ? BACKEND_URL + fotoFundo : "/defaultFundo.png"})`,
                         backgroundSize: "cover",
                         cursor: "pointer"
                     }}
@@ -110,7 +112,7 @@ const Perfil = () => {
                         perfilInputRef.current.click();
                     }}>
                         <img
-                            src={fotoPerfil || "/defaultAnonimo.png"}
+                            src={fotoPerfil ? BACKEND_URL + fotoPerfil : "/defaultAnonimo.png"}
                             alt="Foto de perfil"
                             style={{ width: '100%', height: '100%', borderRadius: '50%', cursor: 'pointer' }}
                         />
