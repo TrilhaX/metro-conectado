@@ -46,52 +46,6 @@
     z-index: 2;
 }
 
-/* FORMULÁRIO */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #0e6d5e;
-    border-radius: 10px;
-    padding: 1rem 3rem;
-    width: max-content;
-    z-index: 1;
-}
-
-/* CAMPOS DE ENTRADA */
-.input-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin: 1rem 0;
-    width: 100%;
-    max-width: 300px;
-}
-
-.input-container label {
-    position: absolute;
-    top: -10px;
-    left: 12px;
-    font-size: 1rem;
-    padding: 0 5px;
-    color: white;
-}
-
-input {
-    background-color: #b4bfbd;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin: 1rem 0;
-    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:hover {
-    border: 2px solid #006354;
-    transform: scale(1.1);
-    box-shadow: 2px 8px 6px rgba(0, 0, 0, 0.3);
-}
-
 /* BOTÃO */
 button {
     margin: 1rem 0;
@@ -128,22 +82,61 @@ h2 {
 }
 
 .carta {
-  background-color: #006c58;
-  border: none;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  padding: 0 50px;
-  text-align: center;
-  align-items: center;
-  color: white;
+    background-color: #006c58;
+    border: none;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+    align-items: center;
+    color: white;
 }
 
 p {
-  padding-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 ul {
-  list-style-type: none;
-  padding-left: 0;  
+    list-style-type: none;
+    padding-left: 0;
+}
+
+@media (max-width: 990px) {
+    .bodyPerfil {
+        height: 145vh;
+        min-height: 145dvh;
+        padding-top: 10rem;
+    }
+    #root {
+        height: 145vh;
+    }
+    h1 {
+        padding: .5rem;
+        text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.5);
+    }
+    
+    h2 {
+        font-size: 12px;
+        padding-top: 0.4rem;
+    }
+}
+
+@media (max-width: 770px) {
+    .bodyPerfil {
+        height: 120vh;
+    }
+    
+}
+
+@media (max-width: 650px) {
+    .bodyPerfil {
+        height: 120vh;
+    }
+}
+
+@media (max-width: 550px) {
+    .bodyPerfil {
+        height: 120vh;
+    }
 }

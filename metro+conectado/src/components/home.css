@@ -253,7 +253,11 @@ a {
 }
 
 .redes-sociais {
+  display: flex;
+  flex-direction: row;
   margin-top: 30px;
+  width: min-content;
+  width: 100%;
 }
 
 .redes-sociais a {
@@ -298,4 +302,81 @@ body::-webkit-scrollbar-thumb:hover {
 body {
   scrollbar-width: thin;
   scrollbar-color: #33b09d #e8f0ee;
+}
+
+@media (max-width: 990px) {
+  .containerHome h1 {
+    font-size: 3rem;
+    color: #31a290;
+    font-weight: 900;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: rgba(226, 243, 241, 0.4);
+  }
+}
+
+@media (max-width: 770px) {
+  .containerHome h1 {
+    font-size: 2.5rem;
+    color: #31a290;
+    font-weight: 900;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: rgba(226, 243, 241, 0.4);
+  }
+
+  #paragrafoSobrenos {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    font-size: 15px;
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: 650px) {
+  .containerHome h1 {
+    font-size: 2rem;
+    color: #31a290;
+    font-weight: 900;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: rgba(226, 243, 241, 0.4);
+  }
+
+  #paragrafoSobrenos {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    font-size: 13px;
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: 550px) {
+  .containerHome h1 {
+    font-size: 1.7rem;
+    color: #31a290;
+    font-weight: 900;
+    padding: 15px 30px;
+    border-radius: 15px;
+    background-color: rgba(226, 243, 241, 0.4);
+  }
+
+  #paragrafoSobrenos {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    font-size: 13px;
+    opacity: 0.95;
+  }
+
+  #mapasButton,
+  #lotacaoButton {
+    padding: 10px 10px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    background-color: #31a290;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+  }
 }
