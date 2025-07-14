@@ -7,123 +7,110 @@ const Perfil = () => {
     const [usuario, setUsuario] = useState(null);
     const [fotoPerfil, setFotoPerfil] = useState(null);
     const [fotoFundo, setFotoFundo] = useState(null);
-    const [dataFotoPerfil, setDataFotoPerfil] = useState(null);
-    const [dataFotoFundo, setDataFotoFundo] = useState(null);
-
     const perfilInputRef = useRef(null);
     const fundoInputRef = useRef(null);
 
-    useEffect(() => {
-        const dados = JSON.parse(sessionStorage.getItem("sessionUser"));
-        const perfilImg = sessionStorage.getItem("fotoPerfil");
-        const fundoImg = sessionStorage.getItem("fotoFundo");
-        const dataPerfil = sessionStorage.getItem("dataFotoPerfil");
-        const dataFundo = sessionStorage.getItem("dataFotoFundo");
-
-        if (dados) {
-            setUsuario(dados);
-        } else {
-            window.location.href = "login";
+    // Busca dados completos do usuário (incluindo imagens)
+    const buscarUsuario = async (userId) => {
+        try {
+            const res = await fetch(`${BACKEND_URL}/users/${userId}`);
+            if (!res.ok) throw new Error('Erro ao buscar usuário');
+            const data = await res.json();
+            setUsuario(data);
+            setFotoPerfil(data.fotoPerfil);
+            setFotoFundo(data.fotoFundo);
+            // Atualiza sessionStorage
+            sessionStorage.setItem('sessionUser', JSON.stringify(data));
+            if (data.fotoPerfil) sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
+            if (data.fotoFundo) sessionStorage.setItem('fotoFundo', data.fotoFundo);
+        } catch (err) {
+            console.error(err);
         }
-
-        if (perfilImg) setFotoPerfil(perfilImg);
-        if (fundoImg) setFotoFundo(fundoImg);
-        if (dataPerfil) setDataFotoPerfil(dataPerfil);
-        if (dataFundo) setDataFotoFundo(dataFundo);
-    }, []);
-
-    const atualizarUsuario = (usuarioAtualizado) => {
-        setUsuario(usuarioAtualizado);
-        sessionStorage.setItem("sessionUser", JSON.stringify(usuarioAtualizado));
     };
 
+    useEffect(() => {
+        const session = sessionStorage.getItem('sessionUser');
+        if (!session) {
+            window.location.href = '/login';
+            return;
+        }
+        const dados = JSON.parse(session);
+        // Primeiro exibe dados locais
+        setUsuario(dados);
+        setFotoPerfil(sessionStorage.getItem('fotoPerfil'));
+        setFotoFundo(sessionStorage.getItem('fotoFundo'));
+        // Busca versão atualizada do backend
+        buscarUsuario(dados.id);
+    }, []);
+
     const handleLogout = () => {
-        sessionStorage.removeItem("sessionUser");
-        sessionStorage.removeItem("fotoPerfil");
-        sessionStorage.removeItem("fotoFundo");
-        sessionStorage.removeItem("dataFotoPerfil");
-        sessionStorage.removeItem("dataFotoFundo");
-        window.location.href = "/";
+        sessionStorage.clear();
+        window.location.href = '/login';
     };
 
     const enviarImagem = async (file, tipo) => {
         if (!usuario?.id) return;
-
         try {
             const formData = new FormData();
             formData.append('imagem', file);
             formData.append('tipo', tipo);
-
-            const response = await fetch(`${BACKEND_URL}/users/update/${usuario.id}`, {
+            const res = await fetch(`${BACKEND_URL}/users/update/${usuario.id}`, {
                 method: 'POST',
                 body: formData,
             });
-
-            if (!response.ok) {
-                const erro = await response.json();
-                console.error('Erro ao atualizar imagem:', erro);
+            if (!res.ok) {
+                const err = await res.json();
+                console.error('Erro:', err);
                 return;
             }
-
-            const data = await response.json();
-
-            if (tipo === "fotoPerfil") {
-                setFotoPerfil(data.usuario.fotoPerfil);
-                setDataFotoPerfil(new Date().toLocaleString());
-                sessionStorage.setItem("fotoPerfil", data.usuario.fotoPerfil);
-                sessionStorage.setItem("dataFotoPerfil", new Date().toLocaleString());
-            } else if (tipo === "fotoFundo") {
-                setFotoFundo(data.usuario.fotoFundo);
-                setDataFotoFundo(new Date().toLocaleString());
-                sessionStorage.setItem("fotoFundo", data.usuario.fotoFundo);
-                sessionStorage.setItem("dataFotoFundo", new Date().toLocaleString());
-            }
-
-            atualizarUsuario(data.usuario);
-
+            const { usuario: usuarioAtualizado } = await res.json();
+            // Atualiza estados e session
+            setUsuario(usuarioAtualizado);
+            if (usuarioAtualizado.fotoPerfil) setFotoPerfil(usuarioAtualizado.fotoPerfil);
+            if (usuarioAtualizado.fotoFundo) setFotoFundo(usuarioAtualizado.fotoFundo);
+            sessionStorage.setItem('sessionUser', JSON.stringify(usuarioAtualizado));
+            sessionStorage.setItem('fotoPerfil', usuarioAtualizado.fotoPerfil || '');
+            sessionStorage.setItem('fotoFundo', usuarioAtualizado.fotoFundo || '');
         } catch (error) {
-            console.error('Erro na requisição:', error);
+            console.error(error);
         }
     };
 
-    const handleImageChange = (event, tipo) => {
-        const file = event.target.files[0];
-        if (file) {
-            enviarImagem(file, tipo);
-        }
-    };
-
-    const getImagemUrl = (caminho) => {
-        if (!caminho) return '/defaultAnonimo.png';
-        if (caminho.startsWith('http://') || caminho.startsWith('https://')) return caminho;
-        return `${BACKEND_URL}${caminho}`;
+    const handleImageChange = (e, tipo) => {
+        const file = e.target.files[0];
+        if (file) enviarImagem(file, tipo);
     };
 
     return (
-        <div className='bodyPerfil'>
-            <a href='/'><div className="backtoStartImg"></div></a>
-
+        <div className="bodyPerfil">
+            <a href="/">
+                <div className="backtoStartImg" />
+            </a>
             <div className="perfil-container">
                 <div
                     className="perfil-header"
                     onClick={() => fundoInputRef.current.click()}
                     style={{
-                        backgroundImage: `url(${getImagemUrl(fotoFundo)})`,
-                        backgroundSize: "cover",
-                        cursor: "pointer"
+                        backgroundImage: fotoFundo ? `url(${fotoFundo})` : 'none',
+                        backgroundSize: 'cover',
+                        cursor: 'pointer'
                     }}
                 >
-                    <div className="foto-perfil" onClick={(e) => {
-                        e.stopPropagation();
-                        perfilInputRef.current.click();
-                    }}>
-                        <img
-                            src={getImagemUrl(fotoPerfil)}
-                            alt="Foto de perfil"
-                            style={{ width: '100%', height: '100%', borderRadius: '50%', cursor: 'pointer' }}
-                        />
+                    <div
+                        className="foto-perfil"
+                        onClick={(e) => { e.stopPropagation(); perfilInputRef.current.click(); }}
+                    >
+                        {fotoPerfil ? (
+                            <img
+                                src={fotoPerfil}
+                                alt="Foto de perfil"
+                                style={{ width: '100%', height: '100%', borderRadius: '50%', cursor: 'pointer' }}
+                            />
+                        ) : (
+                            <div className="placeholder-perfil" />
+                        )}
                     </div>
-                    <h2>{usuario?.nome || "ANÔNIMO"}</h2>
+                    <h2>{usuario?.nome || 'ANÔNIMO'}</h2>
                 </div>
 
                 <input
@@ -131,28 +118,28 @@ const Perfil = () => {
                     accept="image/*"
                     ref={perfilInputRef}
                     style={{ display: 'none' }}
-                    onChange={(e) => handleImageChange(e, "fotoPerfil")}
+                    onChange={(e) => handleImageChange(e, 'fotoPerfil')}
                 />
                 <input
                     type="file"
                     accept="image/*"
                     ref={fundoInputRef}
                     style={{ display: 'none' }}
-                    onChange={(e) => handleImageChange(e, "fotoFundo")}
+                    onChange={(e) => handleImageChange(e, 'fotoFundo')}
                 />
 
                 <div className="perfil-info">
                     <div className="coluna">
                         <label>NÚMERO</label>
-                        <div className="campo">{usuario?.telefone || "Não informado"}</div>
+                        <div className="campo">{usuario?.telefone || 'Não informado'}</div>
 
                         <label>EMAIL</label>
-                        <div className="campo">{usuario?.email || "Não informado"}</div>
+                        <div className="campo">{usuario?.email || 'Não informado'}</div>
                     </div>
 
                     <div className="coluna">
                         <label>TIPO DO PLANO</label>
-                        <div className="campo">{usuario?.plano || "BÁSICO"}</div>
+                        <div className="campo">{usuario?.plano || 'BÁSICO'}</div>
 
                         <label>PLANOS E MAIS</label>
                         <div className="campo">APRIMORAR PLANO</div>
