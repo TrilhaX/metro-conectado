@@ -108,35 +108,61 @@ ul {
         min-height: 145dvh;
         padding-top: 10rem;
     }
+
+    .carta {
+        padding: 0 30px;
+        max-width: 300px;
+    }
+
     #root {
         height: 145vh;
     }
+
     h1 {
-        padding: .5rem;
+        padding: 0.5rem;
         text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.5);
     }
-    
+
     h2 {
         font-size: 12px;
         padding-top: 0.4rem;
     }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 945px) {
     .bodyPerfil {
-        height: 120vh;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+        padding-top: 8rem;
+        overflow-x: hidden;
     }
-    
-}
 
-@media (max-width: 650px) {
-    .bodyPerfil {
-        height: 120vh;
+    .carta {
+        width: 90%;
+        max-width: 320px;
+        padding: 1.2rem;
+        font-size: 0.9rem;
     }
-}
 
-@media (max-width: 550px) {
-    .bodyPerfil {
-        height: 120vh;
+    button {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
     }
 }
