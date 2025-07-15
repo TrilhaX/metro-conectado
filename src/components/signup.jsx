@@ -88,7 +88,7 @@ const Signup = () => {
                 </div>
                 {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
                 <button type="submit">Entrar</button>
-                <h2><a href='login'>Já tem login?</a></h2>
+                <h2><a href='/metro-conectado/login'>Já tem login?</a></h2>
             </form>
         </div>
     );

@@ -11,7 +11,7 @@ const RecSenha = () => {
                     <label>Email</label>
                     <input type="email" placeholder="seuemail@email.com" required />
                 </div>
-                <button><a href='login' id='linkEspecificoRecoverPassword'>Entrar</a></button>
+                <button><a href='/metro-conectado/login' id='linkEspecificoRecoverPassword'>Entrar</a></button>
             </form>
         </div>
     )

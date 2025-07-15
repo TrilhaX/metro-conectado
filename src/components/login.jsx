@@ -52,8 +52,8 @@ const Login = () => {
                 </div>
                 {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
                 <button type="submit">Entrar</button>
-                <h2><a href='recoverPassword'>Esqueceu a senha?</a></h2>
-                <h2><a href='signup'>Não tenho conta</a></h2>
+                <h2><a href='/metro-conectado/recoverPassword'>Esqueceu a senha?</a></h2>
+                <h2><a href='/metro-conectado/signup'>Não tenho conta</a></h2>
             </form>
         </div>
     );
