@@ -63,7 +63,7 @@ const Signup = () => {
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='/'><div className="backtoStartImg"></div></a>
+            <a href='/metro-conectado'><div className="backtoStartImg"></div></a>
             <form onSubmit={handleSubmit}>
                 <h1>Registro</h1>
                 <div className="input-container-1">

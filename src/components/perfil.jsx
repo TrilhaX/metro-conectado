@@ -83,7 +83,7 @@ const Perfil = () => {
 
     return (
         <div className="bodyPerfil">
-            <a href="/">
+            <a href="/metro-conectado">
                 <div className="backtoStartImg" />
             </a>
             <div className="perfil-container">

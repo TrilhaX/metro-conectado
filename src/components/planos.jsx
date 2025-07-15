@@ -38,7 +38,7 @@ const Planos = () => {
 
     return (
         <div className='bodyPerfil'>
-            <a href='/'><div className="backtoStartImg"></div></a>
+            <a href='/metro-conectado'><div className="backtoStartImg"></div></a>
             {planos.map((plano, index) => (
                 <div key={index} className='carta'>
                     <h1>{plano.nome}</h1>

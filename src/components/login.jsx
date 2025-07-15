@@ -11,11 +11,8 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            // Requisição para buscar todos os usuários
             const response = await fetch('https://backend-metro-conectado.onrender.com/users/all');
             const usuarios = await response.json();
-
-            // Verifica se o usuário com esse e-mail existe
             const usuarioEncontrado = usuarios.find(user => user.email === email);
 
             if (!usuarioEncontrado) {
@@ -23,7 +20,6 @@ const Login = () => {
                 return;
             }
 
-            // Compara a senha com bcrypt
             const senhaConfere = await bcrypt.compare(senha, usuarioEncontrado.senha);
 
             if (!senhaConfere) {
@@ -43,7 +39,7 @@ const Login = () => {
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='/'><div className="backtoStartImg"></div></a>
+            <a href='/metro-conectado'><div className="backtoStartImg"></div></a>
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <div className="input-container">
