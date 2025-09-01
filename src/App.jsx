@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './components/home';
 import Login from './components/login';
 import SignUp from "./components/signup";
@@ -10,18 +10,16 @@ import Perfil from "./components/perfil"
 
 function App() {
   return (
-    <BrowserRouter basename="/metro-conectado">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/planos" element={<Planos />} />
-        <Route path="/mapa" element={<Mapa />} />
-        <Route path="/lotacao" element={<Lotacao />} />
-        <Route path="/recoverPassword" element={<RecSenha />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/perfil" element={<Perfil />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/planos" element={<Planos />} />
+      <Route path="/mapa" element={<Mapa />} />
+      <Route path="/lotacao" element={<Lotacao />} />
+      <Route path="/recoverPassword" element={<RecSenha />} />
+    </Routes>
   );
 }
 
