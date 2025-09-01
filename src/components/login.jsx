@@ -28,7 +28,7 @@ const Login = () => {
 
             const usuarioEncontrado = await response.json();
             sessionStorage.setItem("sessionUser", JSON.stringify(usuarioEncontrado));
-            window.location.href = '/';
+            window.location.href = '/metro-conectado/';
 
         } catch (err) {
             console.error("Erro ao fazer login:", err);
