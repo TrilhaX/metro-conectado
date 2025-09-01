@@ -8,6 +8,9 @@ const Perfil = () => {
     const [usuario, setUsuario] = useState(null);
     const perfilInputRef = useRef(null);
     const fundoInputRef = useRef(null);
+    const [newValue, setNewValue] = useState('');
+    const [confirmValue, setConfirmValue] = useState('');
+    const [editingType, setEditingType] = useState(null);
 
     const buscarUsuario = async (userId) => {
         try {
@@ -72,11 +75,98 @@ const Perfil = () => {
         }
     };
 
+    function handleChangeInfo(type) {
+        const backgroundChangeInfo = document.querySelector(".backgroundChangeInfo");
+        const changeInfo = document.querySelector(".changeInfo");
+
+        if (type === "none") {
+            backgroundChangeInfo.style.display = "none";
+            changeInfo.style.display = "none";
+            setNewValue('');
+            setConfirmValue('');
+            setEditingType(null);
+        } else {
+            backgroundChangeInfo.style.display = "flex";
+            changeInfo.style.display = "flex";
+            setEditingType(type);
+            handleChangeText(type);
+        }
+    }
+
+    function handleChangeText(type) {
+        const text1 = document.querySelector("#text1")
+        const text2 = document.querySelector("#text2")
+        if (type == "email") {
+            text1.innerHTML = "Digite Email Novo"
+            text2.innerHTML = "Confirme o Email Novo"
+        } else if (type == 'numero') {
+            text1.innerHTML = "Digite o Numero Novo"
+            text2.innerHTML = "Confirme o Numero Novo"
+        } else if (type == 'nome') {
+            text1.innerHTML = "Digite o Nome Novo"
+            text2.innerHTML = "Confirme o Nome Novo"
+        }
+    }
+
+    const handleUpdateSubmit = async () => {
+        const updatePayload = {};
+        if (editingType === 'email') {
+            updatePayload.email = newValue;
+        } else if (editingType === 'numero') {
+            updatePayload.telefone = newValue;
+        } else if (editingType === 'nome') {
+            updatePayload.nome = newValue;
+        }
+
+        if (Object.keys(updatePayload).length === 0) {
+            return;
+        }
+
+        try {
+            const res = await fetch(`${BACKEND_URL}/users/update-data/${usuario.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatePayload),
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.message || 'Erro ao atualizar. Tente novamente.');
+            }
+
+            const data = await res.json();
+            setUsuario(data.usuario);
+            sessionStorage.setItem('sessionUser', JSON.stringify(data.usuario));
+            handleChangeInfo('none');
+
+        } catch (error) {
+            console.error("Erro na atualização:", error);
+        }
+    };
+
     return (
         <div className="bodyPerfil">
             <Link to="/metro-conectado">
                 <div className="backtoStartImg" />
             </Link>
+            <div className='backgroundChangeInfo' style={{ display: 'none' }}></div>
+            <div className='changeInfo' style={{ display: 'none' }}>
+                <label id='text1'></label>
+                <input
+                    type="text"
+                    value={newValue}
+                    onChange={(e) => setNewValue(e.target.value)}
+                />
+                <label id='text2'></label>
+                <input
+                    type="text"
+                    value={confirmValue}
+                    onChange={(e) => setConfirmValue(e.target.value)}
+                />
+                <button onClick={handleUpdateSubmit}>Confirmar</button>
+            </div>
             <div className="perfil-container">
                 <div
                     className="perfil-header"
@@ -101,7 +191,7 @@ const Perfil = () => {
                             <div className="placeholder-perfil" />
                         )}
                     </div>
-                    <h2>{usuario?.nome || 'ANÔNIMO'}</h2>
+                    <h2 onClick={() => handleChangeInfo('nome')} style={{ zIndex: 3 }}>{usuario?.nome || 'ANÔNIMO'}</h2>
                 </div>
 
                 <input
@@ -122,18 +212,26 @@ const Perfil = () => {
                 <div className="perfil-info">
                     <div className="coluna">
                         <label>NÚMERO</label>
-                        <div className="campo">{usuario?.telefone || 'Não informado'}</div>
+                        <div onClick={() => handleChangeInfo('numero')} className="campo" style={{ cursor: "pointer" }}>
+                            {usuario?.telefone || 'Não informado'}
+                        </div>
+
                         <label>EMAIL</label>
-                        <div className="campo">{usuario?.email || 'Não informado'}</div>
+                        <div onClick={() => handleChangeInfo('email')} className="campo" style={{ cursor: "pointer" }}>
+                            {usuario?.email || 'Não informado'}
+                        </div>
                     </div>
                     <div className="coluna">
                         <label>TIPO DO PLANO</label>
                         <div className="campo">{usuario?.plano || 'BÁSICO'}</div>
                         <label>PLANOS E MAIS</label>
-                        <div className="campo">APRIMORAR PLANO</div>
+                        <div className="campo">
+                            <Link to="/metro-conectado/planos" style={{ textDecoration: 'none', color: 'black', fontWeight: 'Normal' }}>
+                                APRIMORAR PLANO
+                            </Link>
+                        </div>
                     </div>
                 </div>
-
                 <button className="sair" onClick={handleLogout} title="Sair">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
                         <path d="M480-120v-80h280v-560H480v-80h280q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H480Zm-80-160-55-58 102-102H120v-80h327L345-622l55-58 200 200-200 200Z" />

@@ -46,26 +46,26 @@
 
 /* CONTAINER DO PERFIL */
 .perfil-container {
-  background-color: #006c58;
-  border: none;
-  border-radius: 20px;
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  padding: 0 50px;
-  text-align: center;
-  align-items: center;
-  color: white;
+    background-color: #006c58;
+    border: none;
+    border-radius: 20px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    text-align: center;
+    align-items: center;
+    color: white;
 }
 
 /* CABEÇALHO DO PERFIL (fundo editável) */
 .perfil-header {
-  width: inherit;
-  background-color: #1e1e1e;
-  background-image: url('../assets/backgroundPhotoPerfil.png');
-  background-size: cover;
-  border-radius: 15px;
-  padding: 20px 10px;
+    width: inherit;
+    background-color: #1e1e1e;
+    background-image: url('../assets/backgroundPhotoPerfil.png');
+    background-size: cover;
+    border-radius: 15px;
+    padding: 20px 10px;
 }
 
 /* FOTO DE PERFIL (editável) */
@@ -132,6 +132,7 @@ label {
     margin-bottom: 15px;
     width: 100%;
     text-align: center;
+    text-decoration: none;
 }
 
 /* BOTÃO SAIR */
@@ -160,4 +161,61 @@ label {
 /* ESCONDE OS INPUTS DE IMAGEM */
 input[type="file"] {
     display: none;
+}
+
+Link {
+    text-decoration: none;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.backgroundChangeInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50;
+    left: 50;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.4);
+    filter: blur(4px); 
+}
+
+.changeInfo {
+    position: fixed;
+    top: 50;
+    left: 50;
+    width: 40rem;
+    height: 25rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: #0e6d5f;
+    z-index: 3;
+    color: #0e6d5e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 3rem;
+    gap: 1rem;
+}
+
+input {
+    padding: 1rem;
+}
+
+#closeChangeInfo{
+    position: relative;
+    top: 80%;
+    left: 100%;
+}
+
+#text1, #text2 {
+    font-size: 1rem;
+    font-weight: bold;
 }
