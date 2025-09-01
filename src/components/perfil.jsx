@@ -1,28 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './perfil.css';
 
 const BACKEND_URL = 'https://backend-metro-conectado.onrender.com';
 
 const Perfil = () => {
     const [usuario, setUsuario] = useState(null);
-    const [fotoPerfil, setFotoPerfil] = useState(null);
-    const [fotoFundo, setFotoFundo] = useState(null);
     const perfilInputRef = useRef(null);
     const fundoInputRef = useRef(null);
 
-    // Busca dados completos do usuário (incluindo imagens)
     const buscarUsuario = async (userId) => {
         try {
             const res = await fetch(`${BACKEND_URL}/users/${userId}`);
             if (!res.ok) throw new Error('Erro ao buscar usuário');
             const data = await res.json();
             setUsuario(data);
-            setFotoPerfil(data.fotoPerfil);
-            setFotoFundo(data.fotoFundo);
-            // Atualiza sessionStorage
             sessionStorage.setItem('sessionUser', JSON.stringify(data));
-            if (data.fotoPerfil) sessionStorage.setItem('fotoPerfil', data.fotoPerfil);
-            if (data.fotoFundo) sessionStorage.setItem('fotoFundo', data.fotoFundo);
         } catch (err) {
             console.error(err);
         }
@@ -31,46 +24,42 @@ const Perfil = () => {
     useEffect(() => {
         const session = sessionStorage.getItem('sessionUser');
         if (!session) {
-            window.location.href = '/login';
+            window.location.href = '/metro-conectado/login';
             return;
         }
+
         const dados = JSON.parse(session);
-        // Primeiro exibe dados locais
         setUsuario(dados);
-        setFotoPerfil(sessionStorage.getItem('fotoPerfil'));
-        setFotoFundo(sessionStorage.getItem('fotoFundo'));
-        // Busca versão atualizada do backend
         buscarUsuario(dados.id);
     }, []);
 
     const handleLogout = () => {
         sessionStorage.clear();
-        window.location.href = '/login';
+        window.location.href = '/metro-conectado/login';
     };
 
     const enviarImagem = async (file, tipo) => {
         if (!usuario?.id) return;
+
+        const formData = new FormData();
+        formData.append('imagem', file);
+        formData.append('tipo', tipo);
+
         try {
-            const formData = new FormData();
-            formData.append('imagem', file);
-            formData.append('tipo', tipo);
             const res = await fetch(`${BACKEND_URL}/users/update/${usuario.id}`, {
                 method: 'POST',
                 body: formData,
             });
+
             if (!res.ok) {
                 const err = await res.json();
                 console.error('Erro:', err);
                 return;
             }
+
             const { usuario: usuarioAtualizado } = await res.json();
-            // Atualiza estados e session
             setUsuario(usuarioAtualizado);
-            if (usuarioAtualizado.fotoPerfil) setFotoPerfil(usuarioAtualizado.fotoPerfil);
-            if (usuarioAtualizado.fotoFundo) setFotoFundo(usuarioAtualizado.fotoFundo);
             sessionStorage.setItem('sessionUser', JSON.stringify(usuarioAtualizado));
-            sessionStorage.setItem('fotoPerfil', usuarioAtualizado.fotoPerfil || '');
-            sessionStorage.setItem('fotoFundo', usuarioAtualizado.fotoFundo || '');
         } catch (error) {
             console.error(error);
         }
@@ -78,20 +67,22 @@ const Perfil = () => {
 
     const handleImageChange = (e, tipo) => {
         const file = e.target.files[0];
-        if (file) enviarImagem(file, tipo);
+        if (file) {
+            enviarImagem(file, tipo);
+        }
     };
 
     return (
         <div className="bodyPerfil">
-            <a href="/metro-conectado">
+            <Link to="/metro-conectado">
                 <div className="backtoStartImg" />
-            </a>
+            </Link>
             <div className="perfil-container">
                 <div
                     className="perfil-header"
                     onClick={() => fundoInputRef.current.click()}
                     style={{
-                        backgroundImage: fotoFundo ? `url(${fotoFundo})` : 'none',
+                        backgroundImage: usuario?.fotoFundo ? `url(${usuario.fotoFundo})` : 'none',
                         backgroundSize: 'cover',
                         cursor: 'pointer'
                     }}
@@ -100,9 +91,9 @@ const Perfil = () => {
                         className="foto-perfil"
                         onClick={(e) => { e.stopPropagation(); perfilInputRef.current.click(); }}
                     >
-                        {fotoPerfil ? (
+                        {usuario?.fotoPerfil ? (
                             <img
-                                src={fotoPerfil}
+                                src={usuario.fotoPerfil}
                                 alt="Foto de perfil"
                                 style={{ width: '100%', height: '100%', borderRadius: '50%', cursor: 'pointer' }}
                             />
@@ -132,15 +123,12 @@ const Perfil = () => {
                     <div className="coluna">
                         <label>NÚMERO</label>
                         <div className="campo">{usuario?.telefone || 'Não informado'}</div>
-
                         <label>EMAIL</label>
                         <div className="campo">{usuario?.email || 'Não informado'}</div>
                     </div>
-
                     <div className="coluna">
                         <label>TIPO DO PLANO</label>
                         <div className="campo">{usuario?.plano || 'BÁSICO'}</div>
-
                         <label>PLANOS E MAIS</label>
                         <div className="campo">APRIMORAR PLANO</div>
                     </div>

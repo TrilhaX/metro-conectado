@@ -190,6 +190,8 @@ a {
   background-color: #31a290;
   font-size: 1rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: transform 0.3s ease, box-shadow 0.2s ease;
 }
 

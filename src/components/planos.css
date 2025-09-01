@@ -87,7 +87,7 @@ h2 {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    padding: 0 50px;
+    padding: 2rem;
     text-align: center;
     align-items: center;
     color: white;
@@ -95,6 +95,13 @@ h2 {
 
 p {
     padding-bottom: 1rem;
+}
+
+.containerPlanos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 ul {

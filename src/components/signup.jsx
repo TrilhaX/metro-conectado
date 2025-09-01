@@ -1,9 +1,6 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './signup.css';
-import bcrypt from 'bcryptjs';
-import { v4 as uuidv4 } from 'uuid';
-
-const saltRounds = 10;
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -12,34 +9,35 @@ const Signup = () => {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [erro, setErro] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate(); // Hook para navegação programática
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErro('');
+        setIsLoading(true);
 
-        if (senha.length < 8 || senha.length > 16) {
-            setErro("A senha deve conter entre 8 e 16 caracteres");
+        if (senha !== confirmarSenha) {
+            setErro("As senhas não coincidem.");
+            setIsLoading(false);
             return;
         }
 
-        if (senha !== confirmarSenha) {
-            setErro("As senhas não coincidem");
+        if (senha.length < 8 || senha.length > 16) {
+            setErro("A senha deve conter entre 8 e 16 caracteres.");
+            setIsLoading(false);
             return;
         }
 
         try {
-            const senhaCriptografada = await bcrypt.hash(senha, saltRounds);
-            const id = uuidv4();
-
             const novoUsuario = {
-                id,
                 nome: username,
                 email,
                 telefone,
-                plano: "BÁSICO",
-                senha: senhaCriptografada
+                senha
             };
 
-            const response = await fetch('https://backend-metro-conectado.onrender.com/users/register', {
+            const response = await fetch('https://backend-metro-conectado.onrender.com/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,51 +45,54 @@ const Signup = () => {
                 body: JSON.stringify(novoUsuario)
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                window.location.href = 'login';
+                navigate('/metro-conectado/login');
             } else {
-                setErro(data.erro || "Erro ao registrar.");
+                const data = await response.json();
+                setErro(data.message || "Erro ao registrar. Tente novamente.");
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
-            setErro("Erro de rede ou no servidor.");
+            setErro("Erro de rede ou no servidor. Por favor, tente novamente.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='/metro-conectado'><div className="backtoStartImg"></div></a>
+            <Link to='/metro-conectado'><div className="backtoStartImg"></div></Link>
             <form onSubmit={handleSubmit}>
                 <h1>Registro</h1>
                 <div className="input-container-1">
-                    <label>Nome de Usuário</label>
-                    <input type="text" required value={username} onChange={e => setUsername(e.target.value)} />
+                    <label htmlFor="username">Nome de Usuário</label>
+                    <input id="username" type="text" required value={username} onChange={e => setUsername(e.target.value)} />
                 </div>
                 <div className="input-container-1">
-                    <label>Email</label>
-                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)} />
+                    <label htmlFor="email">Email</label>
+                    <input id="email" type="email" required value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="input-container-1">
-                    <label>Telefone</label>
-                    <input type="tel" required value={telefone} onChange={e => setTelefone(e.target.value)} />
+                    <label htmlFor="telefone">Telefone</label>
+                    <input id="telefone" type="tel" required value={telefone} onChange={e => setTelefone(e.target.value)} />
                 </div>
                 <div className="input-container-1">
-                    <label>Senha</label>
-                    <input type="password" required value={senha} onChange={e => setSenha(e.target.value)} />
+                    <label htmlFor="senha">Senha</label>
+                    <input id="senha" type="password" required value={senha} onChange={e => setSenha(e.target.value)} />
                 </div>
                 <div className="input-container-1">
-                    <label>Confirme a Senha</label>
-                    <input type="password" required value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)} />
+                    <label htmlFor="confirmarSenha">Confirme a Senha</label>
+                    <input id="confirmarSenha" type="password" required value={confirmarSenha} onChange={e => setConfirmarSenha(e.target.value)} />
                 </div>
                 {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
-                <button type="submit">Entrar</button>
-                <h2><a href='/metro-conectado/login'>Já tem login?</a></h2>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Registrando...' : 'Registrar'}
+                </button>
+                <h2><Link to='/metro-conectado/login'>Já tem login?</Link></h2>
             </form>
         </div>
     );
-}
+};
 
 export default Signup;

@@ -1,5 +1,5 @@
 {
-  "homepage": "https://trilhax.github.io/metro-conectado/",
+  "homepage": "https://trilhax.github.io/",
   "name": "metro_conectado",
   "private": true,
   "version": "0.0.0",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -18,7 +18,7 @@
     "browser-image-compression": "^2.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3",
+    "react-router-dom": "^7.8.2",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

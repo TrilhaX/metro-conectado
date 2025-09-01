@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import bcrypt from 'bcryptjs';
+import { Link } from 'react-router-dom';
 import './login.css';
 
 const Login = () => {
@@ -9,24 +9,24 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setErro('');
 
         try {
-            const response = await fetch('https://backend-metro-conectado.onrender.com/users/all');
-            const usuarios = await response.json();
-            const usuarioEncontrado = usuarios.find(user => user.email === email);
+            const response = await fetch('https://backend-metro-conectado.onrender.com/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, senha }),
+            });
 
-            if (!usuarioEncontrado) {
-                setErro("Usuário não encontrado!");
+            if (!response.ok) {
+                const errorData = await response.json();
+                setErro(errorData.message || 'Erro ao fazer login. Verifique suas credenciais.');
                 return;
             }
 
-            const senhaConfere = await bcrypt.compare(senha, usuarioEncontrado.senha);
-
-            if (!senhaConfere) {
-                setErro("Senha incorreta!");
-                return;
-            }
-
+            const usuarioEncontrado = await response.json();
             sessionStorage.setItem("sessionUser", JSON.stringify(usuarioEncontrado));
             window.location.href = '/';
 
@@ -39,21 +39,21 @@ const Login = () => {
     return (
         <div className='bodyLogin'>
             <div className="background-image-login"></div>
-            <a href='/metro-conectado'><div className="backtoStartImg"></div></a>
+            <Link to='/metro-conectado'><div className="backtoStartImg"></div></Link>
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <div className="input-container">
-                    <label>Email</label>
-                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)} />
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" required value={email} onChange={e => setEmail(e.target.value)} />
                 </div>
                 <div className="input-container">
-                    <label>Senha</label>
-                    <input type="password" required value={senha} onChange={e => setSenha(e.target.value)} />
+                    <label htmlFor="senha">Senha</label>
+                    <input type="password" id="senha" required value={senha} onChange={e => setSenha(e.target.value)} />
                 </div>
                 {erro && <label id="erroLabel" style={{ color: 'red' }}>{erro}</label>}
                 <button type="submit">Entrar</button>
-                <h2><a href='/metro-conectado/recoverPassword'>Esqueceu a senha?</a></h2>
-                <h2><a href='/metro-conectado/signup'>Não tenho conta</a></h2>
+                <h2><Link to='/metro-conectado/recoverPassword'>Esqueceu a senha?</Link></h2>
+                <h2><Link to='/metro-conectado/signup'>Não tenho conta</Link></h2>
             </form>
         </div>
     );
