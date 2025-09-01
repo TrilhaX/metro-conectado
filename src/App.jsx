@@ -11,14 +11,14 @@ import Perfil from "./components/perfil"
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/perfil" element={<Perfil />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/planos" element={<Planos />} />
-      <Route path="/mapa" element={<Mapa />} />
-      <Route path="/lotacao" element={<Lotacao />} />
-      <Route path="/recoverPassword" element={<RecSenha />} />
+      <Route path="/metro-conectado/" element={<Home />} />
+      <Route path="/metro-conectado/login" element={<Login />} />
+      <Route path="/metro-conectado/perfil" element={<Perfil />} />
+      <Route path="/metro-conectado/signup" element={<SignUp />} />
+      <Route path="/metro-conectado/planos" element={<Planos />} />
+      <Route path="/metro-conectado/mapa" element={<Mapa />} />
+      <Route path="/metro-conectado/lotacao" element={<Lotacao />} />
+      <Route path="/metro-conectado/recoverPassword" element={<RecSenha />} />
     </Routes>
   );
 }
