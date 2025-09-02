@@ -57,6 +57,13 @@ const Home = () => {
                         </Link>
                     </li>
                     <hr />
+                    <li>
+                        <Link to="/metro-conectado/mapa">
+                            Mapa
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z"/></svg>
+                        </Link>
+                    </li>
+                    <hr />
                     {usuarioLogado ? (
                         <>
                             <li>
@@ -114,27 +121,6 @@ const Home = () => {
             <main>
                 <div className="containerHome">
                     <h1>METRÔ + CONECTADO</h1>
-                    <div className="buttonsHome">
-                        <Link to="/metro-conectado/mapa" className="btn-link">
-                            <button id="mapasButton">
-                                Mapa<svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Zm-40-98v-468l-160-56v468l160 56Zm80 0 120-40v-474l-120 46v468Zm-440-10 120-46v-468l-120 40v474Zm440-458v468-468Zm-320-56v468-468Z" /></svg>
-                            </button>
-                        </Link>
-                        <Link to="/metro-conectado/lotacao" className="btn-link">
-                            <button id="lotacaoButton">
-                                Lotação
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="30px"
-                                    viewBox="0 -960 960 960"
-                                    width="30px"
-                                    fill="#e3e3e3"
-                                >
-                                    <path d="m280-40 112-564-72 28v136h-80v-188l202-86q14-6 29.5-7t29.5 4q14 5 26.5 14t20.5 23l40 64q26 42 70.5 69T760-520v80q-70 0-125-29t-94-74l-25 123 84 80v300h-80v-260l-84-64-72 324h-84Zm260-700q-33 0-56.5-23.5T460-820q0-33 23.5-56.5T540-900q33 0 56.5 23.5T620-820q0 33-23.5 56.5T540-740Z" />
-                                </svg>
-                            </button>
-                        </Link>
-                    </div>
                 </div>
             </main>
             <footer id="footer">

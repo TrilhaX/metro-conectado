@@ -60,23 +60,6 @@ a, li {
   font-style: normal;
 }
 
-/* Botão da Sidebar */
-.botaoMenu {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  z-index: 1001;
-  transition: left 0.3s ease;
-}
-
-/* Quando a sidebar está aberta, move o botão */
-.botaoMenu.moverBotao {
-  left: 200px;
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -125,26 +108,6 @@ a, li {
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
-}
-
-/*  Container Principal (Home)  */
-.containerHome {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
-
-/*  Título  */
-.containerHome h1 {
-  font-size: 4rem;
-  color: #31a290;
-  font-weight: 900;
-  padding: 15px 30px;
-  border-radius: 15px;
-  background-color: rgba(226, 243, 241, 0.4);
 }
 
 .background-image {
