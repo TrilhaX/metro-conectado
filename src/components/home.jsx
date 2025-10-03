@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./home.css"; // Certifique-se de que este caminho está correto
+import "./home.css";
 
 const Home = () => {
     const [menuAberto, setMenuAberto] = useState(false);
